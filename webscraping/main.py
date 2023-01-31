@@ -2,6 +2,10 @@
 from bs4 import BeautifulSoup
 import requests #this library requests info from a specific website
 
+print('Put some skill that you are not familiar with')
+unfamiliar_skill = input('>')
+print(f'Filtering out {unfamiliar_skill}')
+
 #retrieve information in the specified URL
 html_text = requests.get('https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords=python&txtLocation=').text
 #print(html_text) #should return 200 to mean successful request if .text not specified
@@ -22,11 +26,13 @@ for job in jobs:
         #from the more info section, we aim to procure the link only
         moreInfo = job.header.h2.a['href']
 
-        #.strip is used inside strings to get rid of undesired blank spaces
-        print(f"Company Name: {company_name.strip()}")
-        print(f'Required Skills: {skills.strip()}')
-        print(f'More Info: {moreInfo}')
-        print('')
+        #filters out to suit only job listings that are in accordance to your skills
+        if unfamiliar_skill not in skills:
+            #.strip is used inside strings to get rid of undesired blank spaces
+            print(f"Company Name: {company_name.strip()}")
+            print(f'Required Skills: {skills.strip()}')
+            print(f'More Info: {moreInfo}')
+            print('')
 
         #special functionalities
             #while loop
