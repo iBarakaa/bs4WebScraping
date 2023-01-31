@@ -8,13 +8,20 @@ html_text = requests.get('https://www.timesjobs.com/candidate/job-search.html?se
 soup = BeautifulSoup(html_text, 'lxml')
 
 #in the website time jobs, this is the procedure to grab joblistings
-job = soup.find('li', class_ = 'clearfix job-bx wht-shd-bx' ) #results of only current page
+jobs = soup.find_all('li', class_ = 'clearfix job-bx wht-shd-bx' ) #results of only current page
 
-#we aim to replace our whitespaces with nothing
-company_name = job.find('h3', class_ = 'joblist-comp-name').text.replace(' ','')
-skills = job.find('span', class_='srp-skills').text.replace(' ','')
+#for this looping structure, we aim to fetch all jobs and put them through a check
+#the filter is for few days ago
+for job in jobs:
+    #we have to make sure that this only takes published dates of few days ago
+    publishedDate = job.find('span', class_ = 'sim-posted').span.text #.span is to enter within the span of the span
+    if 'few' in publishedDate:
+        #we aim to replace our whitespaces with nothing
+        company_name = job.find('h3', class_ = 'joblist-comp-name').text.replace(' ','')
+        skills = job.find('span', class_='srp-skills').text.replace(' ','')
 
-print(f'''
-Company Name: {company_name}
-Required Skills: {skills}
-''')
+        print(f'''
+        Company Name: {company_name}
+        Required Skills: {skills}
+        Status: {publishedDate}
+        ''')
