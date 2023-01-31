@@ -19,9 +19,19 @@ for job in jobs:
         #we aim to replace our whitespaces with nothing
         company_name = job.find('h3', class_ = 'joblist-comp-name').text.replace(' ','')
         skills = job.find('span', class_='srp-skills').text.replace(' ','')
+        #from the more info section, we aim to procure the link only
+        moreInfo = job.header.h2.a['href']
 
-        print(f'''
-        Company Name: {company_name}
-        Required Skills: {skills}
-        Status: {publishedDate}
-        ''')
+        #.strip is used inside strings to get rid of undesired blank spaces
+        print(f"Company Name: {company_name.strip()}")
+        print(f'Required Skills: {skills.strip()}')
+        print(f'More Info: {moreInfo}')
+        print('')
+
+        #special functionalities
+            #while loop
+            #executing project every certain amount of time
+            #filtration for job posts not meeting owned skills
+            #throw results of posts to new blank file
+
+
