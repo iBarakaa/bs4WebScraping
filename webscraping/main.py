@@ -1,4 +1,5 @@
 #begin with first installing the requests library
+import time
 from bs4 import BeautifulSoup
 import requests #this library requests info from a specific website
 
@@ -18,7 +19,7 @@ def find_jobs():
 
     #for this looping structure, we aim to fetch all jobs and put them through a check
     #the filter is for few days ago
-    for job in jobs:
+    for index, job in enumerate(jobs): #   allows us to iterate over the index of the job lists and content
         #we have to make sure that this only takes published dates of few days ago
         publishedDate = job.find('span', class_ = 'sim-posted').span.text #.span is to enter within the span of the span
         if 'few' in publishedDate:
@@ -30,11 +31,15 @@ def find_jobs():
 
             #filters out to suit only job listings that are in accordance to your skills
             if unfamiliar_skill not in skills:
-                #.strip is used inside strings to get rid of undesired blank spaces
-                print(f"Company Name: {company_name.strip()}")
-                print(f'Required Skills: {skills.strip()}')
-                print(f'More Info: {moreInfo}')
-                print('')
+                #   .strip is used inside strings to get rid of undesired blank spaces
+                #   posts dir is read now only because we used the relative path
+                with open(f'webscraping\posts/{index}.txt', 'w') as f:
+                    #   each job is written inside a file
+                    f.write(f"Company Name: {company_name.strip()} \n")
+                    f.write(f'Required Skills: {skills.strip()} \n' )
+                    f.write(f'More Info: {moreInfo}')
+                print(f'File saved: {index}')
+
 
             #special functionalities
                 #while loop
@@ -42,5 +47,12 @@ def find_jobs():
                 #filtration for job posts not meeting owned skills
                 #throw results of posts to new blank file
 
-
+if __name__ == '__main__':
+    while True:
+        find_jobs()
+        #   the time_wait and its corresponding print message are meant to notify user how long they will wait for updates
+        time_wait = 5
+        print(f'Waiting {time_wait} minutes...')
+        time.sleep(time_wait * 60) #   wait certain amount of time it runs after
+        
 
