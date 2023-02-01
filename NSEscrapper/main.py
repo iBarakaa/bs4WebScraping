@@ -1,10 +1,13 @@
 from bs4 import BeautifulSoup
 import requests
 
-from_marketlist = requests.get('https://live.mystocks.co.ke/m/pricelist')
-soup = BeautifulSoup(from_marketlist.content,'lxml')
+# live NSE company shareprices listings website
+site_url = 'https://live.mystocks.co.ke/m/pricelist'
 
-#   table of shares
+shares_page = requests.get(site_url)
+soup = BeautifulSoup(shares_page.content,'lxml')
+
+# table of shares
 shares = soup.find_all('tr', class_ = 'row')
 print(shares)
 
