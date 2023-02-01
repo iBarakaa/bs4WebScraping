@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 #accessing content inside home.html file
 #second entry either decides whether we read, write or both
-with open('home.html', 'r') as html_file: 
+with open('localscraping\home.html', 'r') as html_file: 
     content = html_file.read()
 
     #using beautiful soup to prettify html and work with its tags like python objects
