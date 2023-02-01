@@ -41,3 +41,5 @@ with open('home.html', 'r') as html_file:
 #   findall looks through descendants and retrieves
 #   to find a limit of args, we use: find_all("p", limit = '3')
 #   find_all will always return a list
+#   if you just pass the argument as well it works as find_all in fetching the tags
+#   find and object.<tag> result to the same result
