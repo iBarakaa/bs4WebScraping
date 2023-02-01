@@ -35,3 +35,9 @@ with open('home.html', 'r') as html_file:
 
         #printing output with f-string
         print(f'{course_name} costs {course_price}')
+
+#   In finding list of tags we can use "find_all(['','','', ... ])"
+#   for all tags, we use find_all(true)
+#   findall looks through descendants and retrieves
+#   to find a limit of args, we use: find_all("p", limit = '3')
+#   find_all will always return a list
