@@ -8,17 +8,15 @@ shares_page = requests.get(site_url)
 soup = BeautifulSoup(shares_page.content,'lxml')
 
 # table of shares
-shares = soup.find_all('tr', class_ = 'row')
-print(shares)
+table_of_shares = soup.find('table')
+rows = table_of_shares.find_all('tr', class_ = 'row')
 
 
-for share in shares:
-    inactive = share.find('tr', class_ = 'row r1 inact')
-
-    if not inactive:
-        category = share.find('th', class_ = 'head').text
-        company_name = share.find('td', class_ = 'nm').text
-        share_price = share.find('td', class_ = 'n').text
+# for share in shares:
+    
+#     category = share.find('th', class_ = 'head')
+#     company_name = share.find('td', class_ = 'nm')
+#     print(category)
 
         
 
