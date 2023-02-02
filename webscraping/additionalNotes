@@ -1,0 +1,19 @@
+- ssl certificates secure online transactions
+- workflow of ssl certificates:
+    1. browser requests server for ID
+    2. web server sends copy of its SSL to the browser
+    3. browser decides whether it accepts SSL, if accepted there will be a handshake
+    4. server sends digital acknowledgement and SSL encrypted session is created
+
+- in requests.get('', Verify=True) - this is the default nature of the line
+- requests can also ignore verifying SSL through verify=False
+- if you have custom certificates, download the certificates, place them into working directory and add to verify = '<custom_cert>'
+
+- to export scraped data to a csv file, first we need to import:
+    1. 'from csv import writer' imports necessary packages to deal with csv files
+    2. 'with open('csvfile', 'w', encoding = 'utf8', newline='') as f:' opens csv file, writes on it with utf8 encoding opened as f
+    3. 'thewriter = writer(f)' assign a writer responsible for writing on f
+    4. 'header = ['Title', 'location', 'price', 'area']' csv means comma seperated values, and the list 'header', writes cells
+    5. 'thewriter.writerow(header)' this codeline writes the row that defines data classification
+    6. add 'thewriter.writerow(info)' within the for loop to continuously print row by row
+    
