@@ -11,7 +11,13 @@ soup = BeautifulSoup(shares_page.content,'lxml')
 table_of_shares = soup.find('table')
 rows = table_of_shares.find_all('tr', class_ = 'row')
 
+for row in rows:
+    company_name = row.find('td', class_ = 'nm')
+    share_price = row.find('td', class_ = 'n')
 
+    market_info = [company_name, share_price]
+    print(market_info)
+    
 # for share in shares:
     
 #     category = share.find('th', class_ = 'head')
