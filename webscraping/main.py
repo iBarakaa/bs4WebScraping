@@ -55,16 +55,7 @@ if __name__ == '__main__':
         print(f'Waiting {time_wait} minutes...')
         time.sleep(time_wait * 60) #   wait certain amount of time it runs after
         
-#   ssl certificates secure online transactions
-#   workflow of ssl certificates 
-#   browser requests server for ID
-#   web server sends copy of its SSL to the browser
-#   browser decides whether it accepts SSL, if accepted there will be a handshake
-#   server sends digital acknowledgement and SSL encrypted session is created
 
-#   in requests.get('', Verify=True) - this is the default nature of the line
-#   requests can also ignore verifying SSL through verify=False
-#   if you have custom certificates, download the certificates, place them into working directory and add to verify = '<custom_cert>'
 
 
 
