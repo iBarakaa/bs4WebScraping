@@ -2,9 +2,10 @@ from bs4 import BeautifulSoup
 from csv import writer
 import requests
 import time
+import schedule
 
 def find_shares():
-    # live NSE company shareprices listings website
+    # live NSE companies shareprices listings from mystocks website
     site_url = 'https://live.mystocks.co.ke/m/pricelist'
 
     shares_page = requests.get(site_url)
@@ -29,13 +30,23 @@ def find_shares():
             # writes looped rows into the csv
             infoWriter.writerow(market_info)
 
+# scheduling execution every Friday @ 12noon
+schedule.every().friday.at("12:00").do(find_shares)
+
 if __name__ == '__main__':
     while True:
-        find_shares()
-        # the spreadsheet will refresh weekly 
-        inactive_days = 7
-        print(f"Waiting {inactive_days} days ...")
-        time.sleep((inactive_days * 24) * 3600)
+        schedule.run_pending()
+        time.sleep(1)
+
+
+# the code below will run every 7 days, however, we have opted to use the schedule package for more concise execution as seen above
+# if __name__ == '__main__':
+#     while True:
+#         find_shares()
+#         # the spreadsheet will refresh weekly 
+#         inactive_days = 7
+#         print(f"Waiting {inactive_days} days ...")
+#         time.sleep((inactive_days * 24) * 3600)
 
 
     
