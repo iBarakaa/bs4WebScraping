@@ -3,6 +3,7 @@ from csv import writer
 import requests
 import time
 import schedule
+import datetime
 
 # the main workflow is defined into a python function
 def find_shares():
@@ -33,11 +34,12 @@ def find_shares():
             try:
                 company_name = row.find('td', class_ = 'nm').text.replace('\n','')
                 share_price = row.find('td', class_ = 'n').text
+                scraped_date = datetime.date.today()
             except AttributeError:
                 continue
 
             # storing of procured data into an array
-            market_info = [company_name, "KES."+share_price]
+            market_info = [company_name, "KES."+share_price, scraped_date]
             # writes array into the csv
             infoWriter.writerow(market_info)
 
@@ -59,14 +61,14 @@ def find_shares():
 #         time.sleep((inactive_days * 24) * 3600)
 
 
-# scheduling every 15 minutes 
+# scheduling every 5 seconds
 if __name__ == '__main__':
     while True:
         find_shares()
         # refreshing after every 15 minutes
-        sleep_minutes = 15
-        print(f"Waiting {sleep_minutes} minutes ...")
-        time.sleep(sleep_minutes * 60)
+        sleep = 5
+        print(f"Waiting {sleep} seconds ...")
+        time.sleep(sleep)
 
 
     
