@@ -25,7 +25,7 @@ def find_shares():
         infoWriter = writer(sharesSheet)
 
         # creation of header that classifies the columns
-        header = ['Company Name', 'Share Price']
+        header = ['Company Name', 'Share Price', 'Date']
         infoWriter.writerow(header)
         for row in rows:
             # scraping and refining the row data of names and prices 
