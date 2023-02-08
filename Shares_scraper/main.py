@@ -26,20 +26,157 @@ def find_shares():
         infoWriter = writer(sharesSheet)
 
         # creation of header that classifies the columns
-        header = ['Company Name', 'Share Price', 'Date']
+        header = ['Company Name', 'Share Price','Sector', 'Date']
         infoWriter.writerow(header)
         for row in rows:
             # scraping and refining the row data of names and prices 
             # the reason for placement into the try-except block is so as to filter out rows that have NONE values
             try:
                 company_name = row.find('td', class_ = 'nm').text.replace('\n','')
+                # Companies within the stock market stored within arrays in their respective sectors
+                agricultural_companies = [
+                    'EGAD', 
+                    'KUKZ', 
+                    'KAPC', 
+                    'LMT', 
+                    'SASN', 
+                    'WTK'
+                    ]
+
+                automobile_companies = ['CGEN']
+
+                banking_companies = [
+                    'ABSA',
+                    'BKG',
+                    'COOP',
+                    'DTK',
+                    'EQTY',
+                    'HFCK',
+                    'IMH',
+                    'KCB',
+                    'NBK',
+                    'NCBA',
+                    'SBIC',
+                    'SCBK'
+                ]
+
+                commercial_companies = [
+                    'DCON',
+                    'EVRD',
+                    'XPRS',
+                    'HBE',
+                    'KQ',
+                    'LKL',
+                    'NBV',
+                    'NMG',
+                    'SMER',
+                    'SGL',
+                    'TPSE',
+                    'UCHM',
+                    'SCAN'
+                ]
+
+                construction_companies = [
+                    'ARM',
+                    'BAMB',
+                    'CRWN',
+                    'CABL',
+                    'PORT'
+                ]
+
+                energy_companies = [
+                    'KEGN',
+                    'KPLC-P4',
+                    'KPLC-P7',
+                    'KPLC',
+                    'TOTL',
+                    'UMME'
+                ]
+
+                insurance_companies = [
+                    'BRIT',
+                    'CIC',
+                    'JUB',
+                    'KNRE',
+                    'LBTY',
+                    'SLAM'
+                ]
+
+                investment_companies = [
+                    'CTUM',
+                    'HAFR',
+                    'KURV',
+                    'OCH',
+                    'TCL'
+                ]
+
+                investmentservices_companies = ['NSE']
+
+                manufacturing_companies = [
+                    'BOC',
+                    'BAT',
+                    'CARB',
+                    'EABL',
+                    'FTGH',
+                    'ORCH',
+                    'MSC',
+                    'UNGA'
+                ]
+
+                telecommunication_companies = ['SCOM']
+
+                realestate_companies = ['FAHR']
+
+                etf_companies = ['GLD']
+
+
+                # assignment of companies into sectors within the csv
+                if company_name in agricultural_companies:
+                    sector = 'Agricultural'
+
+                if company_name in automobile_companies:
+                    sector = 'Automobiles'
+
+                if company_name in banking_companies:
+                    sector = 'Banking'
+
+                if company_name in commercial_companies:
+                    sector = 'Commercial'
+
+                if company_name in construction_companies:
+                    sector = 'Construction'
+
+                if company_name in energy_companies:
+                    sector = 'Energy'
+
+                if company_name in insurance_companies:
+                    sector = 'Insurance'
+
+                if company_name in investment_companies:
+                    sector = 'Investments'
+
+                if company_name in investmentservices_companies:
+                    sector = 'InvestmentServices'
+
+                if company_name in manufacturing_companies:
+                    sector = 'Manufacturing'
+
+                if company_name in telecommunication_companies:
+                    sector = 'Telecommunication'
+
+                if company_name in realestate_companies:
+                    sector = 'Investment'
+
+                if company_name in etf_companies:
+                    sector = 'ExchangeTradedFunds'
+                    
                 share_price = row.find('td', class_ = 'n').text
                 scraped_date = datetime.date.today()
             except AttributeError:
                 continue
 
             # storing of procured data into an array
-            market_info = [company_name, "KES."+share_price, scraped_date]
+            market_info = [company_name, "KES."+share_price, sector, scraped_date]
             # writes array into the csv
             infoWriter.writerow(market_info)
 
